@@ -37,8 +37,8 @@
 
     .logo {
       display:flex;
-      align-items:center; 
-      gap:10px; 
+      align-items:center;
+      gap:10px;
     }
 
     .logo img {
@@ -63,7 +63,6 @@
       text-decoration:underline;
     }
 
-    /* Hero Section */
     .hero {
       background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
       color:white;
@@ -145,6 +144,40 @@
     @media (max-width:1024px){.card{width:250px;padding:20px;}.stat{font-size:24px;}.stat-label{font-size:16px;}}
     @media (max-width:768px){.grid{gap:20px;}.card{width:220px;padding:18px;}.stat{font-size:22px;}.stat-label{font-size:15px;}}
     @media (max-width:480px){.grid{flex-direction:column;gap:20px;}.card{width:90%;margin:0 auto;}.stat{font-size:20px;}.stat-label{font-size:14px;}}
+    
+    /* 3ST-VI Official Notice Glow & Badge */
+    .glow-text {animation: glowPulse 2s ease-in-out infinite alternate;}
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700; }
+      50% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; }
+      100% { text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700; }
+    }
+    .badge-float-pulse-hover {
+      animation: badgePulse 2.5s ease-in-out infinite alternate, badgeFloat 3s ease-in-out infinite alternate;
+      animation-delay: 0.5s, 0s;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor:pointer;
+    }
+    .badge-float-pulse-hover:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 25px #FFD700;
+      transform: scale(1.08);
+    }
+    @keyframes badgePulse {
+      0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 0 8px #FFD700; }
+      50% { transform: scale(1.05); box-shadow: 0 6px 18px rgba(0,0,0,0.3), 0 0 16px #FFD700; }
+      100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 0 8px #FFD700; }
+    }
+    @keyframes badgeFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+    @media (max-width:768px) {
+      .badge-float-pulse-hover { font-size:16px; padding:8px 14px; top:15px; right:15px; }
+    }
+    @media (max-width:480px) {
+      .badge-float-pulse-hover { font-size:14px; padding:6px 12px; top:10px; right:10px; }
+    }
   </style>
 </head>
 <body>
@@ -169,6 +202,20 @@
   <p><span class="highlight">Every number represents a real life changed</span> — thanks to our donors and supporters, HWO continues to empower communities quietly and effectively.</p>
   <button class="btn btn-primary">Donate Now</button>
   <button class="btn btn-secondary">Join Us</button>
+</section>
+
+<!-- 3ST-VI Official Notice -->
+<section class="section" id="3st-official-notice" style="position:relative; text-align:center; background:#F9FAFB; padding:80px 20px; opacity:0; transform:translateY(40px); transition:1s ease-out;">
+  <div class="badge-float-pulse-hover" style="position:absolute; top:20px; right:20px; background:#FFD700; color:#1E3A8A; font-weight:bold; padding:10px 18px; border-radius:12px; font-size:18px; box-shadow:0 4px 12px rgba(0,0,0,0.25); cursor:pointer;">
+    3ST-VI
+  </div>
+  <h2 class="glow-text" style="color:var(--primary-color); font-size:36px;">OFFICIAL NOTICE</h2>
+  <h3 class="glow-text" style="margin-top:15px; font-size:28px; color:var(--secondary-color);">3ST-VI (2026)</h3>
+  <p style="margin-top:10px; font-size:22px; font-weight:bold; color:#333;">HUMAN WELFARE ORGANIZATION</p>
+  <p style="margin-top:20px; font-size:18px; color:#555;">A decisive phase is approaching.</p>
+  <p style="margin-top:10px; font-size:18px; color:#555;">The syllabus is under <strong class="glow-text">FINAL REVIEW</strong> and will be <strong class="glow-text">RELEASED SOON</strong>.</p>
+  <p style="margin-top:10px; font-size:18px; color:#555;">Prepare. Observe. Anticipate.</p>
+  <p style="margin-top:10px; font-size:18px; font-weight:bold; color:var(--primary-color);">Be ready to avail the golden opportunity.</p>
 </section>
 
 <section class="section" id="about">
@@ -230,6 +277,7 @@
 </footer>
 
 <script>
+  // Counter animation
   const counters = document.querySelectorAll('.stat');
   counters.forEach(counter => {
     const updateCount = () => {
@@ -246,6 +294,7 @@
     updateCount();
   });
 
+  // Scroll animations
   const sections = document.querySelectorAll('.section, .hero, .card, .stat, .cta');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -255,6 +304,17 @@
     });
   }, { threshold: 0.2 });
   sections.forEach(sec => observer.observe(sec));
+
+  // 3ST-VI badge mobile tap effect
+  const badge = document.querySelector('.badge-float-pulse-hover');
+  badge.addEventListener('touchstart', () => {
+    badge.style.boxShadow = '0 6px 20px rgba(0,0,0,0.35), 0 0 25px #FFD700';
+    badge.style.transform = 'scale(1.08)';
+  });
+  badge.addEventListener('touchend', () => {
+    badge.style.transform = '';
+    badge.style.boxShadow = '';
+  });
 </script>
 
 </body>
