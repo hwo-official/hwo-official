@@ -13,110 +13,32 @@
       --cta-primary: #10B981;
       --cta-secondary: #1E3A8A;
     }
-
-    body {
-      margin:0;
-      font-family:'Open Sans', sans-serif;
-      line-height:1.6;
-      overflow-x:hidden;
-      scroll-behavior: smooth;
-      background:var(--accent-color);
-    }
-
-    header {
-      background:var(--primary-color);
-      color:white;
-      padding:15px 30px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
-    }
-
-    .logo {
-      display:flex;
-      align-items:center; /* keeps logo and text on same line */
-      gap:10px; /* small space between logo and text */
-    }
-
-    .logo img {
-      width:50px;
-      height:50px;
-      transition:0.5s;
-    }
-
-    .logo img:hover {
-      transform:rotate(10deg);
-    }
-
-    nav a {
-      color:white;
-      margin:0 15px;
-      text-decoration:none;
-      font-weight:bold;
-      font-size:16px;
-    }
-
-    nav a:hover {
-      text-decoration:underline;
-    }
+    body {margin:0; font-family:'Open Sans', sans-serif; line-height:1.6; overflow-x:hidden; scroll-behavior: smooth; background:var(--accent-color);}
+    header {background:var(--primary-color); color:white; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000;}
+    .logo {display:flex; align-items:center; gap:10px;}
+    .logo img {width:50px; height:50px; transition:0.5s;}
+    .logo img:hover {transform:rotate(10deg);}
+    nav a {color:white; margin:0 15px; text-decoration:none; font-weight:bold; font-size:16px;}
+    nav a:hover {text-decoration:underline;}
 
     /* Hero Section */
     .hero {
       background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
-      color:white;
-      padding:140px 20px;
-      text-align:center;
-      opacity:0;
-      transform:translateY(40px);
-      transition:1s ease-out;
+      color:white; padding:140px 20px; text-align:center; opacity:0; transform:translateY(40px); transition:1s ease-out;
     }
-    .hero.visible {
-      opacity:1;
-      transform:translateY(0);
-    }
-    .hero h1 {
-      font-family:'Montserrat', sans-serif;
-      font-size:50px;
-      margin-bottom:20px;
-    }
-    .hero p {
-      font-size:20px;
-      margin:12px 0;
-      max-width:800px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-    .hero .highlight {
-      color:#FFD700;
-      font-weight:bold;
-    }
+    .hero.visible {opacity:1; transform:translateY(0);}
+    .hero h1 {font-family:'Montserrat', sans-serif; font-size:50px; margin-bottom:20px;}
+    .hero p {font-size:20px; margin:12px 0; max-width:800px; margin-left:auto; margin-right:auto;}
+    .hero .highlight {color:#FFD700; font-weight:bold;}
 
-    .btn {
-      padding:14px 30px;
-      margin:12px;
-      border:none;
-      cursor:pointer;
-      border-radius:7px;
-      font-weight:bold;
-      font-size:16px;
-      transition:0.3s;
-    }
+    .btn {padding:14px 30px; margin:12px; border:none; cursor:pointer; border-radius:7px; font-weight:bold; font-size:16px; transition:0.3s;}
     .btn-primary {background:var(--cta-primary); color:white;}
     .btn-secondary {background:var(--cta-secondary); color:white;}
     .btn:hover {opacity:0.85; transform:translateY(-2px);}
     .btn-primary:hover {background:#0f9f6f;}
     .btn-secondary:hover {background:#162d6b;}
 
-    .section {
-      padding:80px 20px;
-      text-align:center;
-      opacity:0;
-      transform:translateY(40px);
-      transition:1s ease-out;
-    }
+    .section {padding:80px 20px; text-align:center; opacity:0; transform:translateY(40px); transition:1s ease-out;}
     .section.visible {opacity:1; transform:translateY(0);}
     .section h2 {font-family:'Montserrat'; font-size:36px; margin-bottom:30px; color:var(--primary-color);}
     .section p {max-width:750px; margin-left:auto; margin-right:auto; font-size:18px; color:#333;}
@@ -139,9 +61,11 @@
 
     footer {background:#222; color:white; text-align:center; padding:25px; font-size:16px;}
 
+    /* Floating animation */
     @keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
     .floating {animation: float 3s ease-in-out infinite;}
 
+    /* Responsive */
     @media (max-width:1024px){.card{width:250px;padding:20px;}.stat{font-size:24px;}.stat-label{font-size:16px;}}
     @media (max-width:768px){.grid{gap:20px;}.card{width:220px;padding:18px;}.stat{font-size:22px;}.stat-label{font-size:15px;}}
     @media (max-width:480px){.grid{flex-direction:column;gap:20px;}.card{width:90%;margin:0 auto;}.stat{font-size:20px;}.stat-label{font-size:14px;}}
@@ -151,7 +75,7 @@
 
 <header>
   <div class="logo">
-    <img src="logo.jpg" alt="HWO Logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="HWO Logo">
     <h2>HUMAN WELFARE ORGANIZATION (HWO)</h2>
   </div>
   <nav>
