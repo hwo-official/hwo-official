@@ -67,12 +67,14 @@
 
     footer {background:#222; color:white; text-align:center; padding:25px;}
 
+    /* Glow */
     .glow-text {animation: glow 2s infinite alternate;}
     @keyframes glow {
       from {text-shadow:0 0 5px gold;}
       to {text-shadow:0 0 20px gold;}
     }
 
+    /* Badge animations */
     .badge-float-pulse-hover {
       position:absolute; top:20px; right:20px;
       background:#FFD700; color:#1E3A8A;
@@ -97,6 +99,7 @@
       to {box-shadow:0 0 18px gold;}
     }
 
+    /* Bounce */
     @keyframes badgeBounce {
       0%{transform:translateY(0);}
       50%{transform:translateY(-10px);}
@@ -126,7 +129,7 @@
 </section>
 
 <!-- 3ST SECTION -->
-<section class="section" id="3st" style="position:relative;">
+<section class="section" id="3st">
   
   <a href="#contact" class="badge-float-pulse-hover">3ST-VI</a>
 
@@ -139,6 +142,7 @@
   <p>Prepare. Observe. Anticipate.</p>
   <p><b>Be ready to avail the golden opportunity.</b></p>
 
+  <!-- Countdown -->
   <div id="countdown">Loading...</div>
 
 </section>
@@ -158,22 +162,22 @@
 </footer>
 
 <script>
-// ✅ FORCE VISIBILITY (MAIN FIX)
-window.addEventListener("load", () => {
-  document.querySelectorAll('.section, .hero').forEach(el => {
-    el.classList.add('visible');
-  });
-});
-
-// Badge safe
-const badge = document.querySelector('.badge-float-pulse-hover');
-if (badge) {
+// Scroll animation
+document.querySelectorAll('.section, .hero').forEach(el=>{
   new IntersectionObserver(entries=>{
     if(entries[0].isIntersecting){
-      badge.classList.add('badge-visible');
+      el.classList.add('visible');
     }
-  }).observe(badge);
-}
+  }).observe(el);
+});
+
+// Badge bounce
+const badge=document.querySelector('.badge-float-pulse-hover');
+new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    badge.classList.add('badge-visible');
+  }
+}).observe(badge);
 
 // Countdown
 const countdown=document.getElementById('countdown');
@@ -191,4 +195,4 @@ setInterval(()=>{
 </script>
 
 </body>
-</html>
+</html> 
