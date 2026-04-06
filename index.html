@@ -144,7 +144,7 @@
     @media (max-width:1024px){.card{width:250px;padding:20px;}.stat{font-size:24px;}.stat-label{font-size:16px;}}
     @media (max-width:768px){.grid{gap:20px;}.card{width:220px;padding:18px;}.stat{font-size:22px;}.stat-label{font-size:15px;}}
     @media (max-width:480px){.grid{flex-direction:column;gap:20px;}.card{width:90%;margin:0 auto;}.stat{font-size:20px;}.stat-label{font-size:14px;}}
-    
+
     /* 3ST-VI Official Notice Glow & Badge */
     .glow-text {animation: glowPulse 2s ease-in-out infinite alternate;}
     @keyframes glowPulse {
@@ -172,12 +172,17 @@
       50% { transform: translateY(-6px); }
       100% { transform: translateY(0); }
     }
-    @media (max-width:768px) {
-      .badge-float-pulse-hover { font-size:16px; padding:8px 14px; top:15px; right:15px; }
+
+    /* Bounce when visible */
+    @keyframes badgeBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
-    @media (max-width:480px) {
-      .badge-float-pulse-hover { font-size:14px; padding:6px 12px; top:10px; right:10px; }
-    }
+    .badge-visible { animation: badgeBounce 1s ease-in-out 1; }
+
+    @media (max-width:768px) { .badge-float-pulse-hover { font-size:16px; padding:8px 14px; top:15px; right:15px; } }
+    @media (max-width:480px) { .badge-float-pulse-hover { font-size:14px; padding:6px 12px; top:10px; right:10px; } }
+
   </style>
 </head>
 <body>
@@ -305,8 +310,18 @@
   }, { threshold: 0.2 });
   sections.forEach(sec => observer.observe(sec));
 
-  // 3ST-VI badge mobile tap effect
+  // 3ST-VI badge scroll bounce + mobile tap
   const badge = document.querySelector('.badge-float-pulse-hover');
+
+  const badgeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        badge.classList.add('badge-visible');
+      }
+    });
+  }, { threshold: 0.5 });
+  badgeObserver.observe(badge);
+
   badge.addEventListener('touchstart', () => {
     badge.style.boxShadow = '0 6px 20px rgba(0,0,0,0.35), 0 0 25px #FFD700';
     badge.style.transform = 'scale(1.08)';
