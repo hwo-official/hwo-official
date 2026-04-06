@@ -10,11 +10,16 @@
       --primary-color: #1E3A8A;
       --secondary-color: #10B981;
       --accent-color: #F3F4F6;
+      --cta-primary: #10B981;
+      --cta-secondary: #1E3A8A;
     }
 
     body {
       margin:0;
       font-family:'Open Sans', sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+      scroll-behavior: smooth;
       background:var(--accent-color);
     }
 
@@ -27,12 +32,15 @@
       align-items:center;
       position:sticky;
       top:0;
+      z-index:1000;
     }
 
     .logo {display:flex; align-items:center; gap:10px;}
-    .logo img {width:50px;}
+    .logo img {width:50px; height:50px; transition:0.5s;}
+    .logo img:hover {transform:rotate(10deg);}
 
-    nav a {color:white; margin:0 15px; text-decoration:none;}
+    nav a {color:white; margin:0 15px; text-decoration:none; font-weight:bold;}
+    nav a:hover {text-decoration:underline;}
 
     .hero {
       background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
@@ -40,38 +48,61 @@
       color:white;
       padding:140px 20px;
       text-align:center;
+      opacity:0; transform:translateY(40px); transition:1s;
+    }
+    .hero.visible {opacity:1; transform:translateY(0);}
+
+    .btn {padding:14px 30px; margin:12px; border:none; border-radius:7px; cursor:pointer;}
+    .btn-primary {background:#10B981; color:white;}
+    .btn-secondary {background:#1E3A8A; color:white;}
+
+    .section {padding:80px 20px; text-align:center; opacity:0; transform:translateY(40px); transition:1s;}
+    .section.visible {opacity:1; transform:translateY(0);}
+
+    .grid {display:flex; flex-wrap:wrap; justify-content:center; gap:30px;}
+    .card {width:280px; padding:25px; background:white; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+
+    .stats {display:flex; justify-content:center; gap:50px; flex-wrap:wrap;}
+    .stat {font-size:28px; color:#10B981;}
+
+    footer {background:#222; color:white; text-align:center; padding:25px;}
+
+    .glow-text {animation: glow 2s infinite alternate;}
+    @keyframes glow {
+      from {text-shadow:0 0 5px gold;}
+      to {text-shadow:0 0 20px gold;}
     }
 
-    .section {
-      padding:80px 20px;
-      text-align:center;
+    .badge-float-pulse-hover {
+      position:absolute; top:20px; right:20px;
+      background:#FFD700; color:#1E3A8A;
+      padding:10px 18px; border-radius:12px;
+      text-decoration:none; font-weight:bold;
+      animation: float 3s infinite, pulse 2.5s infinite alternate;
+      transition:0.3s;
     }
 
-    footer {
-      background:#222;
-      color:white;
-      padding:20px;
-      text-align:center;
-    }
-
-    /* Badge */
-    .badge {
-      position:absolute;
-      top:20px;
-      right:20px;
-      background:#FFD700;
-      padding:10px 18px;
-      border-radius:10px;
-      font-weight:bold;
-      text-decoration:none;
-      color:#1E3A8A;
-      animation: float 3s infinite;
+    .badge-float-pulse-hover:hover {
+      transform:scale(1.08);
+      box-shadow:0 0 25px gold;
     }
 
     @keyframes float {
       0%,100%{transform:translateY(0);}
       50%{transform:translateY(-6px);}
     }
+
+    @keyframes pulse {
+      from {box-shadow:0 0 8px gold;}
+      to {box-shadow:0 0 18px gold;}
+    }
+
+    @keyframes badgeBounce {
+      0%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+      100%{transform:translateY(0);}
+    }
+    .badge-visible {animation: badgeBounce 0.8s;}
 
   </style>
 </head>
@@ -94,13 +125,13 @@
   <h1>Empowering Communities</h1>
 </section>
 
-<!-- ✅ 3ST SECTION FIXED -->
-<section class="section" id="3st" style="position:relative; background:white;">
+<!-- ✅ ONLY ADDED SECTION -->
+<section class="section visible" id="3st" style="position:relative;">
   
-  <a href="#contact" class="badge">3ST-VI</a>
+  <a href="#contact" class="badge-float-pulse-hover">3ST-VI</a>
 
-  <h2>OFFICIAL NOTICE</h2>
-  <h3>3ST-VI (2026)</h3>
+  <h2 class="glow-text">OFFICIAL NOTICE</h2>
+  <h3 class="glow-text">3ST-VI (2026)</h3>
 
   <p><b>HUMAN WELFARE ORGANIZATION</b></p>
   <p>A decisive phase is approaching.</p>
@@ -108,7 +139,7 @@
   <p>Prepare. Observe. Anticipate.</p>
   <p><b>Be ready to avail the golden opportunity.</b></p>
 
-  <div id="countdown" style="margin-top:20px; font-weight:bold;"></div>
+  <div id="countdown">Loading...</div>
 
 </section>
 
@@ -127,23 +158,38 @@
 </footer>
 
 <script>
-const countdown = document.getElementById("countdown");
-const targetDate = new Date("May 15, 2026").getTime();
+// Scroll animation
+document.querySelectorAll('.section, .hero').forEach(el=>{
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      el.classList.add('visible');
+    }
+  }).observe(el);
+});
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = targetDate - now;
+// Safe badge
+const badge = document.querySelector('.badge-float-pulse-hover');
+if (badge) {
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      badge.classList.add('badge-visible');
+    }
+  }).observe(badge);
+}
 
-  if (diff < 0) {
-    countdown.innerHTML = "Registration Open!";
-    return;
-  }
+// Countdown
+const countdown=document.getElementById('countdown');
+const date=new Date("May 15, 2026").getTime();
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+setInterval(()=>{
+  const now=new Date().getTime();
+  const diff=date-now;
 
-  countdown.innerHTML = days + " Days " + hours + " Hours Remaining";
-}, 1000);
+  const d=Math.floor(diff/(1000*60*60*24));
+  const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+
+  countdown.innerHTML=`${d} Days ${h} Hours Remaining`;
+},1000);
 </script>
 
 </body>
